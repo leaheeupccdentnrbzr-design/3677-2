@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SQC PRO — Financial information consulting and intelligence for institutional and private clients." />
+  <title>SQC PRO | Financial Information Consulting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --void: #050508;
+      --space-black: #0a0c10;
+      --space-elevated: #12151c;
+      --sea-deep: #0a1a2e;
+      --sea-mid: #132f4a;
+      --sea-glow: #1e4d6b;
+      --moss-dark: #1a2e24;
+      --moss: #2d4a3a;
+      --moss-light: #4a7c62;
+      --gold-dim: #8a7340;
+      --gold: #c9a962;
+      --gold-bright: #e8d5a3;
+      --gold-shine: linear-gradient(135deg, #f0e6c8 0%, #c9a962 45%, #8a7340 100%);
+      --text: #e8eaef;
+      --text-muted: #9aa3b2;
+      --header-h: 84px;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Outfit", system-ui, sans-serif;
+      background: var(--void);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Sections anchor offset for fixed header */
+    section[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
+
+    /* --- Background atmosphere --- */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201, 169, 98, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 169, 98, 0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow {
+      position: fixed;
+      width: 140vmax;
+      height: 140vmax;
+      top: -40%;
+      left: -20%;
+      background: radial-gradient(ellipse at 30% 30%, rgba(30, 77, 107, 0.35) 0%, transparent 55%),
+                  radial-gradient(ellipse at 70% 60%, rgba(45, 74, 58, 0.25) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* --- Header --- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      min-height: var(--header-h);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: nowrap;
+      padding: 0.6rem clamp(1rem, 4vw, 2.5rem);
+      background: linear-gradient(180deg, rgba(5, 5, 8, 0.95) 0%, rgba(5, 5, 8, 0.75) 85%, transparent 100%);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 169, 98, 0.12);
+    }
+    .logo {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.35rem, 3vw, 1.75rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      flex-shrink: 0;
+      background: var(--gold-shine);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-decoration: none;
+    }
+    .logo span { font-weight: 400; letter-spacing: 0.08em; opacity: 0.9; }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.75rem, 2vw, 1.25rem);
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    nav.desktop-nav {
+      display: flex;
+      gap: 0.25rem;
+      flex-shrink: 0;
+    }
+    .menu-company-desc {
+      margin: 0;
+      font-size: 0.65rem;
+      line-height: 1.45;
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: min(18rem, 28vw);
+      padding-left: 0.85rem;
+      border-left: 1px solid rgba(201, 169, 98, 0.2);
+      display: none;
+      overflow: hidden;
+    }
+    @media (min-width: 1024px) {
+      .menu-company-desc.menu-company-desc--header {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+    }
+
+    nav.desktop-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.5rem 0.85rem;
+      border-radius: 6px;
+      transition: color 0.25s var(--ease-out), background 0.25s var(--ease-out);
+    }
+    nav.desktop-nav a:hover,
+    nav.desktop-nav a.active {
+      color: var(--gold-bright);
+      background: rgba(201, 169, 98, 0.08);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      background: rgba(201, 169, 98, 0.1);
+      border: 1px solid rgba(201, 169, 98, 0.25);
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1002;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      margin: 0 auto;
+      background: var(--gold);
+      transition: transform 0.3s var(--ease-out), opacity 0.3s;
+    }
+    .menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      top: var(--header-h);
+      background: rgba(5, 5, 8, 0.97);
+      backdrop-filter: blur(16px);
+      padding: 1.5rem;
+      flex-direction: column;
+      gap: 0.25rem;
+      z-index: 1001;
+      border-top: 1px solid rgba(201, 169, 98, 0.15);
+      transform: translateY(-8px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s var(--ease-out), visibility 0.35s, transform 0.35s var(--ease-out);
+    }
+    .mobile-drawer.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .menu-company-desc.menu-company-desc--drawer {
+      display: block;
+      font-size: 0.82rem;
+      max-width: none;
+      border-left: none;
+      padding: 0 0.25rem 1rem;
+      margin-bottom: 0.35rem;
+      border-bottom: 1px solid rgba(201, 169, 98, 0.15);
+      color: var(--text-muted);
+    }
+    @media (min-width: 901px) {
+      .menu-company-desc.menu-company-desc--drawer { display: none; }
+    }
+
+    .mobile-drawer a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 1rem 1rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+    .mobile-drawer a:hover,
+    .mobile-drawer a:focus {
+      background: rgba(30, 77, 107, 0.35);
+      border-color: rgba(74, 124, 98, 0.4);
+      color: var(--gold-bright);
+    }
+
+    @media (max-width: 900px) {
+      nav.desktop-nav { display: none; }
+      .menu-toggle { display: flex; }
+      .mobile-drawer { display: flex; }
+    }
+
+    /* --- Layout --- */
+    main { position: relative; z-index: 1; }
+    .wrap {
+      width: min(1200px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    /* --- Hero --- */
+    .hero {
+      min-height: 100vh;
+      padding-top: var(--header-h);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
+      padding-bottom: 4rem;
+    }
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: calc(var(--header-h) + 1.5rem);
+      }
+    }
+    .hero-copy h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.5rem, 6vw, 3.75rem);
+      font-weight: 600;
+      line-height: 1.12;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(120deg, #fff 0%, var(--gold-bright) 50%, var(--sea-glow) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-copy .lead {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 32rem;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.25s var(--ease-out), box-shadow 0.25s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--gold-shine);
+      color: var(--void);
+      box-shadow: 0 8px 32px rgba(201, 169, 98, 0.25);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(201, 169, 98, 0.45);
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+    .hero-frame {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(201, 169, 98, 0.25);
+      box-shadow:
+        0 24px 80px rgba(10, 26, 46, 0.6),
+        0 0 0 1px rgba(45, 74, 58, 0.3) inset;
+    }
+    .hero-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      vertical-align: middle;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: -1rem;
+      left: -1rem;
+      background: linear-gradient(145deg, var(--sea-mid), var(--moss-dark));
+      border: 1px solid rgba(201, 169, 98, 0.3);
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-bright);
+      max-width: 200px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+    @media (max-width: 900px) {
+      .hero-badge { left: 1rem; bottom: -0.5rem; }
+    }
+
+    /* --- Section shells --- */
+    .section {
+      padding: clamp(4rem, 10vw, 6rem) 0;
+      position: relative;
+    }
+    .section-alt {
+      background: linear-gradient(180deg, transparent, rgba(10, 26, 46, 0.35) 40%, transparent);
+    }
+    .section-head {
+      margin-bottom: clamp(2rem, 5vw, 3rem);
+    }
+    .section-head .eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--moss-light);
+      margin-bottom: 0.75rem;
+    }
+    .section-head h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-head h2 span { color: var(--gold); }
+    .section-head p.sub {
+      margin-top: 1rem;
+      color: var(--text-muted);
+      max-width: 36rem;
+      font-weight: 300;
+    }
+
+    /* --- Image strip / gallery --- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 768px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+    .gallery figure {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(201, 169, 98, 0.15);
+      aspect-ratio: 4/3;
+    }
+    .gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .gallery figure:hover img { transform: scale(1.05); }
+    .gallery figcaption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.65rem 0.75rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: linear-gradient(transparent, rgba(5, 5, 8, 0.92));
+      color: var(--gold-bright);
+    }
+
+    /* --- Cards --- */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .grid-3 { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: linear-gradient(160deg, var(--space-elevated) 0%, var(--sea-deep) 100%);
+      border: 1px solid rgba(201, 169, 98, 0.12);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      border-color: rgba(74, 124, 98, 0.45);
+      box-shadow: 0 20px 50px rgba(10, 26, 46, 0.4);
+    }
+    .card h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--gold-bright);
+    }
+    .card p { color: var(--text-muted); font-size: 0.95rem; font-weight: 300; }
+
+    /* --- About page block --- */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .split { grid-template-columns: 1fr; }
+    }
+    .split img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(201, 169, 98, 0.2);
+    }
+    .values {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .pill {
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid rgba(74, 124, 98, 0.5);
+      color: var(--moss-light);
+      background: rgba(26, 46, 36, 0.4);
+    }
+
+    /* --- Services --- */
+    .service-list {
+      border-top: 1px solid rgba(201, 169, 98, 0.12);
+    }
+    .service-row {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(201, 169, 98, 0.12);
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .service-row { grid-template-columns: 1fr; gap: 0.75rem; }
+    }
+    .service-row h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.35rem;
+      color: var(--gold);
+    }
+    .service-body p {
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+    .service-body p + p {
+      margin-top: 0.85rem;
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .subpage-lead {
+      max-width: 42rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+    .subpage-lead + .subpage-lead { margin-top: 1rem; }
+
+    .subpage-block {
+      margin-top: 2.5rem;
+      padding: clamp(1.5rem, 4vw, 2.25rem);
+      background: linear-gradient(160deg, rgba(18, 21, 28, 0.92), rgba(10, 26, 46, 0.45));
+      border: 1px solid rgba(201, 169, 98, 0.12);
+      border-radius: 12px;
+    }
+    .subpage-block h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.4rem;
+      color: var(--gold-bright);
+      margin-bottom: 1rem;
+    }
+    .subpage-block p {
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 0.9rem;
+      line-height: 1.7;
+    }
+    .subpage-block p:last-child { margin-bottom: 0; }
+
+    .subpage-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 768px) {
+      .subpage-columns { grid-template-columns: 1fr; }
+    }
+    .subpage-columns .subpage-block { margin-top: 0; }
+
+    ul.prose-list {
+      margin: 1rem 0 0 1.1rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+    ul.prose-list li { margin-bottom: 0.45rem; }
+    ul.prose-list li::marker { color: var(--moss-light); }
+
+    /* --- Insights --- */
+    .insights {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .insights { grid-template-columns: 1fr; }
+    }
+    .insight {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1.25rem;
+      background: var(--space-black);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(30, 77, 107, 0.4);
+    }
+    @media (max-width: 500px) {
+      .insight { grid-template-columns: 1fr; }
+    }
+    .insight img {
+      width: 100%;
+      height: 100%;
+      min-height: 140px;
+      object-fit: cover;
+    }
+    .insight .body { padding: 1.5rem 1.5rem 1.5rem 0; }
+    @media (max-width: 500px) {
+      .insight .body { padding: 0 1.25rem 1.25rem; }
+    }
+    .insight h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .insight p { font-size: 0.875rem; color: var(--text-muted); font-weight: 300; }
+    .insight .body p + p {
+      margin-top: 0.65rem;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .contact-card .contact-note {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(201, 169, 98, 0.12);
+    }
+    .contact-card .contact-note p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .contact-card .contact-note p:last-child { margin-bottom: 0; }
+
+    /* --- Contact --- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    .contact-card {
+      background: linear-gradient(165deg, var(--sea-deep), var(--space-elevated));
+      border: 1px solid rgba(201, 169, 98, 0.18);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    .contact-card h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--gold-bright);
+    }
+    .contact-item {
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+    }
+    .contact-item label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--moss-light);
+      margin-bottom: 0.35rem;
+    }
+    .contact-item a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201, 169, 98, 0.35);
+      transition: color 0.2s;
+    }
+    .contact-item a:hover { color: var(--gold); }
+
+    form.contact-form {
+      background: var(--space-black);
+      border: 1px solid rgba(74, 124, 98, 0.25);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    .form-row { margin-bottom: 1.25rem; }
+    .form-row label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .form-row input,
+    .form-row textarea,
+    .form-row select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: rgba(10, 12, 16, 0.8);
+      border: 1px solid rgba(201, 169, 98, 0.15);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+    .form-row input:focus,
+    .form-row textarea:focus,
+    .form-row select:focus {
+      outline: none;
+      border-color: rgba(201, 169, 98, 0.45);
+      box-shadow: 0 0 0 3px rgba(30, 77, 107, 0.35);
+    }
+    .form-row textarea { min-height: 120px; resize: vertical; }
+
+    .form-success {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      background: rgba(45, 74, 58, 0.45);
+      border: 1px solid var(--moss-light);
+      color: var(--gold-bright);
+      font-size: 0.9rem;
+    }
+    .form-success.visible { display: block; }
+
+    /* --- Footer --- */
+    footer {
+      padding: 3rem 0 2rem;
+      border-top: 1px solid rgba(201, 169, 98, 0.12);
+      background: linear-gradient(180deg, transparent, rgba(5, 5, 8, 0.9));
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+      align-items: flex-end;
+    }
+    .footer-inner .logo { margin-bottom: 0.5rem; display: inline-block; }
+    .footer-copy { color: var(--text-muted); font-size: 0.8rem; max-width: 28rem; }
+    .footer-meta { text-align: right; font-size: 0.8rem; color: var(--text-muted); }
+    @media (max-width: 600px) {
+      .footer-meta { text-align: left; }
+    }
+
+    /* --- Reveal --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header>
+    <div class="header-brand">
+      <a href="#home" class="logo" data-nav>SQC<span>PRO</span></a>
+      <p class="menu-company-desc menu-company-desc--header">
+        SQC PRO is a financial information consultancy: we translate market structure, policy signals, and counterparty context into clear, actionable briefs for funds, family offices, and corporate clients—delivered with discretion and analytical rigour.
+      </p>
+    </div>
+    <nav class="desktop-nav" aria-label="Primary">
+      <a href="#home" data-nav>Home</a>
+      <a href="#about" data-nav>About</a>
+      <a href="#services" data-nav>Services</a>
+      <a href="#insights" data-nav>Insights</a>
+      <a href="#contact" data-nav>Contact</a>
+    </nav>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile primary">
+    <p class="menu-company-desc menu-company-desc--drawer">
+      SQC PRO is a financial information consultancy: we translate market structure, policy signals, and counterparty context into clear, actionable briefs for funds, family offices, and corporate clients—delivered with discretion and analytical rigour.
+    </p>
+    <a href="#home" data-nav>Home</a>
+    <a href="#about" data-nav>About</a>
+    <a href="#services" data-nav>Services</a>
+    <a href="#insights" data-nav>Insights</a>
+    <a href="#contact" data-nav>Contact</a>
+  </nav>
+
+  <main>
+    <!-- HOME -->
+    <section class="hero wrap" id="home">
+      <div class="hero-copy reveal">
+        <h1>Clarity in complexity. Intelligence you can act on.</h1>
+        <p class="lead">
+          SQC PRO delivers premium financial information consulting — from market structure and regulatory context to bespoke research — for decision-makers who require precision, discretion, and depth.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#contact" data-nav>Engage us</a>
+          <a class="btn btn-outline" href="#services" data-nav>Our services</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="hero-frame">
+          <img src="https://leaheeupccdentnrbzr-design.github.io/3677-2/26.jpg" alt="SQC PRO — visual identity" width="600" height="400" />
+        </div>
+        <div class="hero-badge">FCA-minded rigour · Confidential by design</div>
+      </div>
+    </section>
+
+    <!-- ABOUT (sub-page) -->
+    <section class="section section-alt" id="about">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">About SQC PRO</p>
+          <h2>A boutique desk for <span>financial intelligence</span></h2>
+          <p class="sub">
+            We sit at the intersection of data, narrative, and judgement — translating noise into structured insight for funds, family offices, and corporate treasury teams across the United Kingdom and Europe.
+          </p>
+          <p class="subpage-lead" style="margin-top:1.25rem;">
+            Our clients rarely lack raw data; what they lack is time to reconcile conflicting narratives, stress-test assumptions, and document why a view changed. SQC PRO exists to compress that work into decision-ready artefacts: sourced, versioned, and proportionate to the question at hand.
+          </p>
+        </div>
+        <div class="split reveal">
+          <div>
+            <img src="https://leaheeupccdentnrbzr-design.github.io/3677-2/27.jpg" alt="SQC PRO office atmosphere" width="560" height="420" />
+            <div class="values" style="margin-top:1.5rem;">
+              <span class="pill">Integrity</span>
+              <span class="pill">Discretion</span>
+              <span class="pill">Rigour</span>
+              <span class="pill">Partnership</span>
+            </div>
+          </div>
+          <div>
+            <p style="color:var(--text-muted);font-weight:300;margin-bottom:1rem;">
+              Founded on the belief that high-quality information should be as usable as it is accurate, SQC PRO assembles multi-disciplinary briefs covering macro trends, sector dynamics, and counterparty context. Our workflows blend primary enquiry, licensed data partners, and senior analyst review — so outputs are traceable, not impressionistic.
+            </p>
+            <p style="color:var(--text-muted);font-weight:300;margin-bottom:1rem;">
+              Whether you require a rapid situational read or a sustained monitoring mandate, we align deliverables to your investment horizon, risk appetite, and compliance framework. Where material uncertainty remains, we say so plainly and suggest what evidence would reduce it.
+            </p>
+            <p style="color:var(--text-muted);font-weight:300;margin-bottom:1rem;">
+              We are deliberately compact: a small senior team, tight editorial standards, and repeatable QA checkpoints. That structure keeps latency low and accountability high — you always know who owned the file and which sources sat behind the headline conclusions.
+            </p>
+            <div class="grid-3" style="margin-top:2rem;">
+              <div class="card">
+                <h3>Who we serve</h3>
+                <p>Asset managers, private capital, listed issuers, and sophisticated private clients seeking independent perspective ahead of capital deployment, restructuring, or strategic partnerships.</p>
+                <ul class="prose-list">
+                  <li>Investment & credit committees</li>
+                  <li>Corporate development & treasury</li>
+                  <li>Family offices & UHNW advisers</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3>How we work</h3>
+                <p>Every mandate begins with a written scope: questions, boundaries, sources we will (and will not) use, and escalation triggers. You receive a dedicated lead analyst and a single editorial owner for sign-off.</p>
+                <ul class="prose-list">
+                  <li>Milestone checkpoints & change logs</li>
+                  <li>Source maps for third-party data</li>
+                  <li>Optional read-outs for internal forums</li>
+                </ul>
+              </div>
+              <div class="card" style="grid-column:span 1;">
+                <h3>Where we operate</h3>
+                <p>Headquartered in Wells with remote delivery across the UK and selective cross-border engagements where jurisdictional rules, language, and time zones require explicit planning.</p>
+                <ul class="prose-list">
+                  <li>UK-first coverage with EU context</li>
+                  <li>Secure document exchange on request</li>
+                  <li>Coordination with your counsel & compliance</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="subpage-columns reveal">
+          <div class="subpage-block">
+            <h3>Mandate & independence</h3>
+            <p>SQC PRO sells analytical labour and structured information — not access to material non-public information, and not placement or distribution services. We decline assignments where independence could reasonably be perceived as compromised.</p>
+            <p>When a question touches regulated activity, we will flag it early and either narrow the scope to information-only work or help you engage an appropriately authorised party.</p>
+          </div>
+          <div class="subpage-block">
+            <h3>Confidentiality & records</h3>
+            <p>Client materials are handled on a need-to-know basis within the delivery team. Retention periods and destruction requirements can be mapped to your policy schedule at onboarding.</p>
+            <p>We maintain contemporaneous workpapers for internal QA; what you receive is the curated output, with appendices only where they add decision value.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES (sub-page) -->
+    <section class="section" id="services">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Services</p>
+          <h2>Information products <span>tailored</span> to your mandate</h2>
+          <p class="sub">Modular engagements that scale from single questions to embedded research partnerships — always with explicit deliverables, timelines, and acceptance criteria so procurement and compliance can sign off with confidence.</p>
+          <p class="subpage-lead" style="margin-top:1rem;">
+            Most engagements start as a scoped sprint (days to two weeks) before expanding into monitoring or retainer coverage. That sequencing lets you validate fit, cadence, and editorial tone without a long lock-in.
+          </p>
+        </div>
+        <div class="subpage-columns reveal">
+          <div class="subpage-block">
+            <h3>Sprint delivery</h3>
+            <p>Ideal for event-driven questions: earnings surprises, M&amp;A rumours you need to triangulate, sudden policy headlines, or a counterparty headline risk that must be contextualised before the next committee sit-down.</p>
+            <p>Output is typically a short written brief plus optional follow-up call; deeper annexes are included only when they materially change the conclusion.</p>
+          </div>
+          <div class="subpage-block">
+            <h3>Ongoing partnership</h3>
+            <p>For teams that want a consistent “second desk” through the quarter: pre-agreed response windows, shared watch-lists, and standing slots for earnings season or board-prep cycles.</p>
+            <p>Retainers include usage reporting so sponsors can demonstrate value internally without disclosing sensitive underlying content.</p>
+          </div>
+        </div>
+        <div class="service-list reveal">
+          <div class="service-row">
+            <h3>Market & sector briefings</h3>
+            <div class="service-body">
+              <p>Concise memos on drivers, risks, and catalysts — grounded in verifiable sources and explicit uncertainty where data is incomplete.</p>
+              <p>We separate what markets are pricing from what fundamentals can plausibly support, and we surface the key debates that would flip our view. Sector work includes value-chain maps, share-shift hypotheses, and sensitivity tables where data allows.</p>
+            </div>
+          </div>
+          <div class="service-row">
+            <h3>Counterparty & context screens</h3>
+            <div class="service-body">
+              <p>Structured snapshots for credit committees, IC packs, and onboarding workflows, with escalation paths for sensitive findings.</p>
+              <p>Deliverables can be aligned to your internal rating template or kept narrative-led for earlier-stage discussions. We document what was searched, what was not available, and any reliance on management-provided figures.</p>
+            </div>
+          </div>
+          <div class="service-row">
+            <h3>Regulatory horizon scanning</h3>
+            <div class="service-body">
+              <p>Tracking consultations, policy drafts, and supervisory themes relevant to your business model and jurisdictions of interest.</p>
+              <p>Updates are prioritised by materiality to your revenue lines and operating model — not generic newsletter volume. Where rules are in flux, we summarise the credible outcome range and timing indicators supervisors are watching.</p>
+            </div>
+          </div>
+          <div class="service-row">
+            <h3>Bespoke research retainers</h3>
+            <div class="service-body">
+              <p>Ongoing access to our desk for ad-hoc questions, earnings-season support, and thematic deep dives agreed under a master scope.</p>
+              <p>Retainers include a quarterly planning call to rebalance hours toward your highest-consequence themes, plus archive-friendly packaging so institutional memory survives team turnover on your side.</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery reveal" style="margin-top:2rem;">
+          <figure><img src="https://leaheeupccdentnrbzr-design.github.io/3677-2/28.jpg" alt="Gallery 1" /><figcaption>Markets</figcaption></figure>
+          <figure><img src="https://leaheeupccdentnrbzr-design.github.io/3677-2/29.jpg" alt="Gallery 2" /><figcaption>Analysis</figcaption></figure>
+          <figure><img src="https://leaheeupccdentnrbzr-design.github.io/3677-2/30.jpg" alt="Gallery 3" /><figcaption>Strategy</figcaption></figure>
+          <figure><img src="https://leaheeupccdentnrbzr-design.github.io/3677-2/31.jpg" alt="Gallery 4" /><figcaption>Partnership</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSIGHTS (sub-page) -->
+    <section class="section section-alt" id="insights">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Insights</p>
+          <h2>Selected <span>themes</span> we cover</h2>
+          <p class="sub">Illustrative focus areas — not investment advice. All engagements are scoped individually, and any examples below are generic descriptions of analytical lenses rather than recommendations to buy, sell, or hold any instrument.</p>
+          <p class="subpage-lead" style="margin-top:1rem;">
+            The themes below reflect recurring client questions: how funding markets transmit stress, how governance quality surfaces in disclosures, how technology spend cycles interact with regulation, and where macro volatility changes the burden of proof for underwriting assumptions.
+          </p>
+        </div>
+        <div class="insights reveal">
+          <article class="insight">
+            <img src="https://leaheeupccdentnrbzr-design.github.io/3677-2/32.jpg" alt="Liquidity theme" />
+            <div class="body">
+              <h4>Liquidity & funding structures</h4>
+              <p>Mapping stress points across banking channels, private credit, and public markets with emphasis on second-order effects.</p>
+              <p>We trace rollover calendars, covenant-lite headroom, collateral re-use where observable, and sponsor behaviour through prior cycles — then stress narratives against plausible funding paths rather than single-point forecasts.</p>
+            </div>
+          </article>
+          <article class="insight">
+            <img src="https://leaheeupccdentnrbzr-design.github.io/3677-2/33.jpg" alt="Governance theme" />
+            <div class="body">
+              <h4>Governance & disclosure quality</h4>
+              <p>Reading the gap between narrative reporting and operational reality — useful ahead of capital allocation decisions.</p>
+              <p>Workstreams may include incentive design, related-party transparency, audit consistency over time, and how management explains misses versus how operating metrics actually moved.</p>
+            </div>
+          </article>
+          <article class="insight">
+            <img src="https://leaheeupccdentnrbzr-design.github.io/3677-2/34.jpg" alt="Technology & capex theme" />
+            <div class="body">
+              <h4>Technology spend & capex cycles</h4>
+              <p>Helping sponsors distinguish durable digitisation from cyclical IT uplift — especially where cloud migration, cybersecurity mandates, and AI tooling overlap in vendor narratives.</p>
+              <p>We reconcile management commentary with cash-flow statements, capitalisation policies, and peer capex intensity to highlight where guidance embeds optimistic absorption of cost inflation.</p>
+            </div>
+          </article>
+          <article class="insight">
+            <img src="https://leaheeupccdentnrbzr-design.github.io/3677-2/35.jpg" alt="Macro & rates theme" />
+            <div class="body">
+              <h4>Macro transmission & rates risk</h4>
+              <p>Translating central-bank and fiscal shifts into practical questions for balance-sheet hedging, pension deficits, and consumer-facing exposures.</p>
+              <p>We avoid single-rate “house views”; instead we outline scenario bands, what would invalidate each, and the sequence in which different borrower cohorts typically break — so risk committees can align hedges to their own tolerance.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT (sub-page) -->
+    <section class="section" id="contact">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Contact</p>
+          <h2>Begin a <span>confidential</span> conversation</h2>
+          <p class="sub">Share your context below. A director will respond in line with your stated urgency. For sensitive matters, we recommend stating preferred contact hours and any internal approval steps we should anticipate.</p>
+          <p class="subpage-lead" style="margin-top:1rem;">
+            First contact is usually a short triage: we confirm conflict posture, whether the request is information-only, and whether we need NDAs or secure channels before any detailed substance changes hands. Nothing you submit via this form creates a client relationship until both sides countersign a written agreement.
+          </p>
+        </div>
+        <div class="contact-grid reveal">
+          <div class="contact-card">
+            <h3>Visit & call</h3>
+            <div class="contact-item">
+              <label>Address</label>
+              <span>13 Burcott Rd, Wells, England</span>
+            </div>
+            <div class="contact-item">
+              <label>Telephone</label>
+              <a href="tel:+447517116648">+44 7517116648</a>
+            </div>
+            <div class="contact-item">
+              <label>Business hours</label>
+              <span>Monday–Friday, 09:00–18:00 GMT</span>
+            </div>
+            <p style="margin-top:1.5rem;font-size:0.85rem;color:var(--text-muted);font-weight:300;">
+              SQC PRO provides financial information consulting. We do not offer regulated investment advice unless separately agreed under an appropriately authorised arrangement.
+            </p>
+            <div class="contact-note">
+              <p><strong style="color:var(--gold);font-weight:600;">What to expect after you reach out.</strong> For standard enquiries we aim to acknowledge within one business day. Complex or cross-border topics may require a short conflict check before we confirm capacity and propose a call time.</p>
+              <p>If your matter is time-critical, please say so in the message field — we will tell you honestly whether we can meet the window or suggest an alternative approach.</p>
+              <p>Written work is delivered in English unless a bilingual scope is agreed in advance. Calls can be scheduled to overlap with US East Coast or Continental European mornings where needed.</p>
+            </div>
+          </div>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-row">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" />
+            </div>
+            <div class="form-row">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" />
+            </div>
+            <div class="form-row">
+              <label for="topic">Topic</label>
+              <select id="topic" name="topic">
+                <option value="">Select a topic</option>
+                <option value="briefing">Market briefing</option>
+                <option value="screen">Counterparty screen</option>
+                <option value="reg">Regulatory scan</option>
+                <option value="retainer">Retainer discussion</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="message">Message</label>
+              <textarea id="message" name="message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Submit enquiry</button>
+            <div class="form-success" id="formSuccess" role="status">
+              Thank you — your message has been received. A member of the SQC PRO team will be in touch shortly.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div>
+        <a href="#home" class="logo" data-nav>SQC<span>PRO</span></a>
+        <p class="footer-copy">
+          Financial information consulting. © <span id="year"></span> SQC PRO Ltd. All rights reserved.
+        </p>
+      </div>
+      <div class="footer-meta">
+        13 Burcott Rd, Wells, England<br />
+        <a href="tel:+447517116648" style="color:var(--gold);text-decoration:none;">+44 7517116648</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var header = document.querySelector("header");
+      var headerH = function () { return header ? header.offsetHeight : 72; };
+
+      var menuToggle = document.getElementById("menuToggle");
+      var mobileDrawer = document.getElementById("mobileDrawer");
+      var desktopLinks = document.querySelectorAll("nav.desktop-nav a");
+      var allNavLinks = document.querySelectorAll("[data-nav]");
+      var mqMobile = window.matchMedia("(max-width: 900px)");
+
+      function setDrawer(open) {
+        if (!menuToggle || !mobileDrawer) return;
+        mobileDrawer.classList.toggle("open", open);
+        menuToggle.classList.toggle("open", open);
+        menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        menuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        document.body.style.overflow = open ? "hidden" : "";
+      }
+
+      if (menuToggle) {
+        menuToggle.addEventListener("click", function () {
+          var open = !mobileDrawer.classList.contains("open");
+          setDrawer(open);
+        });
+      }
+
+      function scrollToSection(hash) {
+        var id = (hash || "").replace("#", "");
+        var el = id ? document.getElementById(id) : null;
+        if (!el) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function updateActiveNav() {
+        var sections = ["home", "about", "services", "insights", "contact"];
+        var pos = window.scrollY + headerH() + 48;
+        var current = "home";
+        for (var i = sections.length - 1; i >= 0; i--) {
+          var sec = document.getElementById(sections[i]);
+          if (sec && sec.offsetTop <= pos) {
+            current = sections[i];
+            break;
+          }
+        }
+        desktopLinks.forEach(function (a) {
+          a.classList.toggle("active", a.getAttribute("href") === "#" + current);
+        });
+      }
+
+      function goToHash(href) {
+        history.pushState(null, "", href);
+        var delay = 0;
+        if (mqMobile.matches && mobileDrawer && mobileDrawer.classList.contains("open")) {
+          setDrawer(false);
+          delay = 140;
+        }
+        setTimeout(function () {
+          scrollToSection(href);
+          setTimeout(updateActiveNav, 500);
+        }, delay);
+      }
+
+      allNavLinks.forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          var href = link.getAttribute("href");
+          if (!href || href.charAt(0) !== "#") return;
+          e.preventDefault();
+          goToHash(href);
+        });
+      });
+
+      window.addEventListener("scroll", updateActiveNav, { passive: true });
+      window.addEventListener("resize", updateActiveNav);
+      updateActiveNav();
+
+      var form = document.getElementById("contactForm");
+      var success = document.getElementById("formSuccess");
+      if (form && success) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          success.classList.add("visible");
+          form.reset();
+          success.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+      }
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      /* Scroll reveal */
+      var reveals = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (en) {
+              if (en.isIntersecting) en.target.classList.add("visible");
+            });
+          },
+          { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+        );
+        reveals.forEach(function (el) { io.observe(el); });
+      } else {
+        reveals.forEach(function (el) { el.classList.add("visible"); });
+      }
+
+      /* Deep link on load */
+      if (window.location.hash) {
+        setTimeout(function () {
+          scrollToSection(window.location.hash);
+        }, 100);
+      }
+    })();
+  </script>
+</body>
+</html>
